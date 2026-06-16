@@ -325,11 +325,21 @@ const _tokenizePath = (path) => {
       i++;
       let mod = '';
       let bracketDepth = 0;
+      let inQuote = false;
+      let quoteChar = null;
       while (i < path.length) {
-        if (path[i] === '[') bracketDepth++;
-        if (path[i] === ']') bracketDepth--;
-        if (path[i] === '|' && bracketDepth === 0) break;
-        mod += path[i];
+        const c = path[i];
+        if (!inQuote && (c === '"' || c === "'")) {
+          inQuote = true;
+          quoteChar = c;
+        } else if (inQuote && c === quoteChar) {
+          inQuote = false;
+          quoteChar = null;
+        }
+        if (!inQuote && c === '[') bracketDepth++;
+        if (!inQuote && c === ']') bracketDepth--;
+        if (!inQuote && c === '|' && bracketDepth === 0) break;
+        mod += c;
         i++;
       }
       if (mod) tokens.push(mod.trim());
