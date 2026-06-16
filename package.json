@@ -1,6 +1,6 @@
 {
   "name": "@transportial/gsjson",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "JSON Getter and Setter language — JavaScript port of the GSJson Kotlin library. Fast, concise path syntax for reading and writing values in JSON documents.",
   "type": "module",
   "main": "./GSJson.js",
